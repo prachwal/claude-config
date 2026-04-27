@@ -190,6 +190,9 @@ alias cc_qwen_p='claude_or qwen/qwen3-235b-a22b'
 alias cc_llama_p='claude_or meta-llama/llama-3.3-70b-instruct'
 alias cc_gpt_mini='claude_or openai/gpt-4o-mini'
 alias cc_haiku='claude_or anthropic/claude-haiku-4-5'
+alias cc_sonnet='claude_or anthropic/claude-sonnet-4-5'
+alias cc_opus='claude_or anthropic/claude-opus-4'
+alias cc_mistral_small='claude_or mistralai/mistral-small-3.2'
 ALIASES
 echo "✓ aliases.sh"
 
