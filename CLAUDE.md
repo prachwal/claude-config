@@ -71,10 +71,16 @@ Read the relevant skill file before writing code in that domain:
 4. Run full test suite at the end
 
 ### For large tasks (6+ files, new feature):
-1. Run `/agent:taskbreak` to decompose
+1. Run `/agent:taskbreak` to decompose into 4-5 stages
 2. Get plan confirmed
-3. Execute in order: Setup → Backend types → Backend logic → Frontend types → Frontend UI → Tests
-4. Never skip steps
+3. Execute one stage at a time:
+   - Complete the stage
+   - Write a handoff file: what was done, blockers, what's next
+   - Start a fresh session — read the handoff file, not the full history
+4. Execute in order: Setup → Backend types → Backend logic → Frontend types → Frontend UI → Tests
+5. Never skip steps
+
+**Why stages?** After ~1 hour of work a session hits 80% context fill. Staged handoffs let you continue without carrying debug noise from earlier steps.
 
 ---
 
@@ -137,13 +143,13 @@ Spawn subagents to isolate context, parallelize independent work, or offload bul
 
 Don't spawn when the parent needs the reasoning, or when synthesis requires holding things together.
 
-Pick the cheapest model that can do the subtask:
-- **Haiku**: bulk mechanical work, no judgment required (renaming, reformatting, boilerplate)
-- **Sonnet**: scoped research, code exploration, in-scope synthesis (default for most tasks)
-- **Opus**: subtasks needing real planning, architecture decisions, or cross-domain tradeoffs
+Match subagent scope to task complexity:
+- **Mechanical**: bulk reformatting, renaming, boilerplate — no judgment needed, one-shot
+- **Scoped**: code exploration, in-scope synthesis — default for most subtasks
+- **Architectural**: real planning, tradeoffs, cross-domain decisions — spawn a fresh session, give full context
 
 Spawn limits:
-- Haiku does not spawn further subagents. If it needs to, the task was wrong-sized — return to parent.
+- Mechanical subagents do not spawn further. If they need to, the task was wrong-sized — return to parent.
 - Maximum spawn depth is 2 (parent → subagent → one further tier).
 - Parent owns final output and cross-spawn synthesis.
 
@@ -161,6 +167,10 @@ Spawn limits:
 
 Use `pdftotext`, not the `Read` tool. Use `Read` only when the user asks to analyze images or charts inside the PDF.
 
+### MCP vs CLI
+
+Every connected MCP server loads its tool definitions into **every message**, even when unused. If a tool has a CLI (Playwright, GitHub CLI, Supabase CLI, Vercel CLI), **use the CLI** — pay tokens only when called. Build a skill around it so the invocation pattern is consistent.
+
 ---
 
 ## DEDICATED TOOLS
@@ -168,5 +178,27 @@ Use `pdftotext`, not the `Read` tool. Use `Read` only when the user asks to anal
 <!-- List project-specific tools here. For each, link to its skill or script file.
      Example: reddit_fetch — tools/reddit_fetch.py
      The orchestration logic lives in those files, not here. -->
+
+---
+
+## PROJECT-SCOPED RULES
+
+When this file exceeds ~100 lines for a given project, offload domain rules to `.claude/rules/`:
+
+```
+.claude/rules/
+  frontend.md       # component conventions, styling rules
+  testing.md        # test patterns, coverage targets
+  supabase.md       # DB access patterns, RLS rules
+  voice-of-tone.md  # copy style, i18n tone
+```
+
+Each file can declare which paths trigger it:
+
+```markdown
+applyTo: "src/tests/**"
+```
+
+This keeps CLAUDE.md lean and loads domain context only when relevant.
 
 ---
