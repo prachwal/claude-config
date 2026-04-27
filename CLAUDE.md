@@ -1,89 +1,119 @@
 # Claude Code Configuration — Optimized for Weak Models
 
-## CRITICAL: Think Before Acting
+## CRITICAL RULES — READ FIRST, EVERY SESSION
 
-You are a coding assistant with limited context. Follow these rules strictly to avoid mistakes:
-
-### Before EVERY action:
-1. **Read first** — never edit a file you haven't read
-2. **One change at a time** — make one logical change, verify, then continue
-3. **Confirm understanding** — if the task is ambiguous, ask ONE clarifying question before starting
-
----
-
-## Tool Use Protocol
-
-### Reading files
-- Always use `Read` before `Edit`
-- Read only the relevant section (use line ranges for large files)
-- Never assume file contents
-
-### Editing files
-- Prefer surgical edits (target specific lines) over full rewrites
-- After every edit, re-read the changed section to confirm correctness
-- If edit fails, stop and report — don't retry blindly
-
-### Running commands
-- Always explain what a command does before running it
-- Never run destructive commands (rm -rf, DROP TABLE, etc.) without explicit user confirmation
-- Prefer dry-run / preview flags when available
-
-### Searching
-- Use `grep` or `find` before assuming a file doesn't exist
-- Check imports/exports before adding new ones
+1. **Read before write** — never edit a file you haven't read in this session
+2. **One change at a time** — make one logical change, verify it works, then continue
+3. **Plan before code** — for any task > 10 lines, produce a plan first
+4. **Use the right agent** — see AGENT ROUTING below
+5. **Load the relevant skill** — see SKILLS below
 
 ---
 
-## Code Quality Rules
+## AGENT ROUTING
 
-### Always:
-- Match the existing code style (indentation, naming, quotes)
-- Preserve existing comments unless explicitly asked to remove them
-- Add error handling for network calls, file I/O, and external APIs
-- Use the language/framework already in the project
+When given a task, determine the type and use the correct agent command:
 
-### Never:
-- Add dependencies without asking
-- Refactor code that wasn't asked to be changed
-- Change unrelated files
-- Leave TODO comments unless asked
+| Task type | Command |
+|-----------|---------|
+| New feature spanning frontend + backend | `/agent:taskbreak <task>` first |
+| React component, UI, styling | `/agent:frontend <task>` |
+| API endpoint, middleware, DB query | `/agent:backend <task>` |
+| Vite / TS / Vitest / ESLint setup | `/agent:setup <task>` |
+| Writing tests for existing code | `/agent:tester <path>` |
+| Vague or large task | `/agent:taskbreak <task>` first |
 
----
-
-## Communication Rules
-
-- **Be concise** — no preamble, no summaries at the end
-- **Report blockers immediately** — if you can't do something, say so upfront
-- **Show, don't explain** — prefer code over description
-- If you made a mistake, say what it was and fix it directly
+**Rule**: If the task touches more than 3 files or more than one domain, run `/agent:taskbreak` first and get the plan approved before writing any code.
 
 ---
 
-## Memory & Context Management
+## SKILLS — LOAD BEFORE WRITING CODE
 
-Because context is limited:
-- Work file-by-file, not across the whole codebase at once
-- When starting a new subtask, re-read relevant files
-- Track what you've changed in this session and list it if asked
-- If context is getting long, summarize completed work in a single line
+Read the relevant skill file before writing code in that domain:
 
----
+| Domain | Skill file |
+|--------|-----------|
+| TypeScript types, generics, errors | `.claude/skills/typescript/SKILL.md` |
+| React components, hooks, context | `.claude/skills/react/SKILL.md` |
+| REST API, validation, auth, DB | `.claude/skills/rest-api/SKILL.md` |
+| Vitest, mocking, RTL | `.claude/skills/vitest/SKILL.md` |
+| Tailwind CSS v4, dark mode, tokens | `.claude/skills/tailwind/SKILL.md` |
+| Accessibility, WCAG 2.2, ARIA | `.claude/skills/wcag-aria/SKILL.md` |
+| Responsive design, mobile-first | `.claude/skills/responsive/SKILL.md` |
 
-## Error Recovery
-
-When something goes wrong:
-1. Stop immediately
-2. Read the error message carefully
-3. Check the relevant file/command
-4. Fix the root cause — not the symptom
-5. Never apply the same failing fix twice
+**How to load a skill**: Use the `Read` tool on the skill file path at the start of the relevant task.
 
 ---
 
-## Task Completion Checklist
+## TASK EXECUTION STRATEGY
 
-Before saying "done":
-- [ ] Code runs without errors
-- [ ] Edge cases handled (null, empty, error states)
-- [ ] No leftover debug code or console.log
-- [ ] Changed files match requested behavior
+### For small tasks (1-2 files, clear requirement):
+1. Read target file(s)
+2. Load relevant skill
+3. Make change
+4. Verify (tsc --noEmit, or run test)
+5. Report
+
+### For medium tasks (3-5 files):
+1. Run `/agent:taskbreak` to get a plan
+2. Get plan confirmed
+3. Execute task by task, verifying each one
+4. Run full test suite at the end
+
+### For large tasks (6+ files, new feature):
+1. Run `/agent:taskbreak` to decompose
+2. Get plan confirmed
+3. Execute in order: Setup → Backend types → Backend logic → Frontend types → Frontend UI → Tests
+4. Never skip steps
+
+---
+
+## VERIFICATION COMMANDS
+
+Run these to verify work is correct:
+
+```bash
+# TypeScript — must show 0 errors
+npx tsc --noEmit 2>&1 | head -30
+
+# Tests — must pass
+npx vitest run 2>&1 | tail -20
+
+# Lint
+npx eslint src 2>&1 | head -20
+
+# Build (before marking feature complete)
+npx vite build 2>&1 | tail -10
+```
+
+---
+
+## ERROR RECOVERY
+
+When something fails:
+1. Read the full error message
+2. Identify the root cause (state it in one sentence)
+3. Fix the root cause — not the symptom
+4. Never apply the same fix twice
+5. If stuck after 2 attempts, stop and explain the problem
+
+---
+
+## COMMUNICATION
+
+- No preamble ("Sure!", "Of course!", "Great question!")
+- No summary at the end ("I hope this helps!")
+- Report blockers immediately and specifically
+- When done: list what changed and how to verify
+
+---
+
+## WHAT TO NEVER DO
+
+- Never edit a file without reading it first
+- Never use `any` in TypeScript
+- Never write `// TODO` in delivered code
+- Never add packages without asking
+- Never refactor code that wasn't requested to change
+- Never skip error handling for async operations
+- Never run `rm -rf` anything
