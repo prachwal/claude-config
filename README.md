@@ -65,6 +65,57 @@ Then: `OPENROUTER_API_KEY=sk-or-... claude_devstral`
 
 ---
 
+## Switching CLAUDE.md profiles
+
+The installer supports named profiles. Each profile is a `CLAUDE-<name>.md` file in the repo root. The active profile is copied to `~/.claude/CLAUDE.md` at install time.
+
+### Available profiles
+
+| Profile | File | Description |
+|---|---|---|
+| `default` | `CLAUDE.md` | Full config with Anthropic model selection (Haiku/Sonnet/Opus routing) |
+| `openrouter` | `CLAUDE-openrouter.md` | Stripped-down config for OpenRouter — no automatic model switching |
+
+### Install with a specific profile
+
+```bash
+# Install with OpenRouter profile
+bash install.sh --profile openrouter
+
+# Update and switch to default profile
+bash install.sh update --profile default
+```
+
+### Switch profile at runtime (without reinstalling)
+
+The `claude_profile` shell function (added by the installer) lets you switch profiles on the fly:
+
+```bash
+# Switch to openrouter profile and run with kimi-k2
+claude_profile openrouter moonshotai/kimi-k2
+
+# Switch back to default and run with haiku
+claude_profile default anthropic/claude-haiku-4-5
+```
+
+Or manually:
+
+```bash
+# Switch active profile manually
+cp ~/.claude/CLAUDE-openrouter.md ~/.claude/CLAUDE.md
+
+# Verify
+head -1 ~/.claude/CLAUDE.md
+```
+
+### Add your own profile
+
+1. Create `CLAUDE-<name>.md` in the repo root
+2. Run `bash install.sh update` — all `CLAUDE-*.md` files are copied automatically
+3. Use `bash install.sh --profile <name>` or `claude_profile <name>` to activate it
+
+---
+
 ## Project structure
 
 ```
