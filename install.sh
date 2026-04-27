@@ -156,12 +156,8 @@ for rule in "$SCRIPT_DIR/rules/"*.md; do
   echo "✓ Rule: $name"
 done
 
-echo ""
-echo "Done."
-if [ "$MODE" = "install" ]; then
-  echo "Add to your shell profile (~/.bashrc or ~/.zshrc):"
-  echo ""
-  cat << 'SHELL'
+# Aliases — write to dedicated file and ensure .bashrc sources it
+cat > "$CLAUDE_DIR/aliases.sh" << 'ALIASES'
 claude_or() {
   local MODEL="${1:-mistralai/devstral-small}"
   shift 2>/dev/null
@@ -181,7 +177,7 @@ alias claude_gemini='claude_or google/gemini-2.5-pro'
 alias claude_qwen='claude_or qwen/qwen3-235b-a22b'
 alias claude_kimi='claude_or moonshotai/kimi-k2'
 
-# Additional OpenRouter model aliases requested (free / cheap tiers)
+# Additional OpenRouter model aliases (free / cheap tiers)
 # Free models
 alias cc_llama='claude_or meta-llama/llama-3.3-70b-instruct:free'
 alias cc_gemini_flash='claude_or google/gemini-2.0-flash-exp:free'
@@ -194,5 +190,16 @@ alias cc_qwen_p='claude_or qwen/qwen3-235b-a22b'
 alias cc_llama_p='claude_or meta-llama/llama-3.3-70b-instruct'
 alias cc_gpt_mini='claude_or openai/gpt-4o-mini'
 alias cc_haiku='claude_or anthropic/claude-haiku-4-5'
-SHELL
+ALIASES
+echo "✓ aliases.sh"
+
+BASHRC="$HOME/.bashrc"
+if ! grep -qF '.claude/aliases.sh' "$BASHRC" 2>/dev/null; then
+  printf '\n# Claude Code — shell aliases\n[ -f "$HOME/.claude/aliases.sh" ] && source "$HOME/.claude/aliases.sh"\n' >> "$BASHRC"
+  echo "✓ Added source line to $BASHRC"
+else
+  echo "✓ $BASHRC already sources aliases.sh"
 fi
+
+echo ""
+echo "Done. Reload your shell: source ~/.bashrc"
