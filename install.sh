@@ -60,6 +60,12 @@ if [ "$MODE" = "uninstall" ]; then
     rm -rf "$CLAUDE_DIR/skills/$name"     && echo "✓ Removed skill: $name"
   done
 
+  for rule in "$SCRIPT_DIR/rules/"*.md; do
+    [ -f "$rule" ] || continue
+    name=$(basename "$rule")
+    rm -f "$CLAUDE_DIR/rules/$name"       && echo "✓ Removed rule: $name"
+  done
+
   echo ""
   echo "Done. settings.json was NOT removed (may contain your personal config)."
   echo "Remove manually with: rm $CLAUDE_DIR/settings.json"
@@ -77,6 +83,7 @@ fi
 mkdir -p "$CLAUDE_DIR/commands/agents"
 mkdir -p "$CLAUDE_DIR/hooks"
 mkdir -p "$CLAUDE_DIR/skills"
+mkdir -p "$CLAUDE_DIR/rules"
 
 # CLAUDE.md — always overwrite (not user config)
 cp "$SCRIPT_DIR/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
@@ -128,13 +135,25 @@ for hook in "$SCRIPT_DIR/hooks/"*.py; do
   echo "✓ Hook: $name"
 done
 
-# Skills — each skill lives in its own subdir with SKILL.md
+# Skills — each skill lives in its own subdir with SKILL.md + optional references/
 for skill_dir in "$SCRIPT_DIR/skills/"/*/; do
   [ -d "$skill_dir" ] || continue
   name=$(basename "$skill_dir")
   mkdir -p "$CLAUDE_DIR/skills/$name"
   cp "$skill_dir/SKILL.md" "$CLAUDE_DIR/skills/$name/SKILL.md"
+  if [ -d "$skill_dir/references" ]; then
+    mkdir -p "$CLAUDE_DIR/skills/$name/references"
+    cp "$skill_dir/references/"*.md "$CLAUDE_DIR/skills/$name/references/" 2>/dev/null || true
+  fi
   echo "✓ Skill: $name"
+done
+
+# Rules — scoped context files loaded by path pattern
+for rule in "$SCRIPT_DIR/rules/"*.md; do
+  [ -f "$rule" ] || continue
+  name=$(basename "$rule")
+  cp "$rule" "$CLAUDE_DIR/rules/$name"
+  echo "✓ Rule: $name"
 done
 
 echo ""
