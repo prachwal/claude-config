@@ -1,3 +1,8 @@
+---
+name: react
+description: Use when building React components, managing state, writing hooks, handling async data fetching, context, or forms. Covers TSX patterns, error boundaries, and performance.
+---
+
 # SKILL: React Patterns
 
 Reference for writing React components correctly.

@@ -1,3 +1,8 @@
+---
+name: wcag-aria
+description: Use when building accessible web UI: ARIA roles and labels, keyboard navigation, focus management, accessible forms, color contrast, live regions, and prefers-reduced-motion.
+---
+
 # SKILL: WCAG / ARIA Accessibility Patterns
 
 Reference for building accessible web applications.

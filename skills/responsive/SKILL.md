@@ -1,3 +1,8 @@
+---
+name: responsive
+description: Use when implementing mobile-first layouts, fluid typography, responsive images, touch targets, navigation menus, or testing across breakpoints.
+---
+
 # SKILL: Responsive Web Design Patterns
 
 Reference for building responsive, mobile-first web applications.

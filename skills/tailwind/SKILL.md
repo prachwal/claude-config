@@ -1,3 +1,8 @@
+---
+name: tailwind
+description: Use when styling with Tailwind CSS v4, including CSS-first @theme configuration, design tokens, dark mode, responsive variants, and component variant patterns with cva.
+---
+
 # SKILL: Tailwind CSS v4 Patterns
 
 Reference for working with Tailwind CSS v4 correctly.

@@ -1,3 +1,8 @@
+---
+name: vitest
+description: Use when writing unit or integration tests with Vitest, including React Testing Library, mocking modules and APIs, testing hooks, and configuring coverage.
+---
+
 # SKILL: Vitest Patterns
 
 Reference for writing and running tests with Vitest.

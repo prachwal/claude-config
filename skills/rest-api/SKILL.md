@@ -1,3 +1,8 @@
+---
+name: rest-api
+description: Use when building or reviewing Node.js REST API endpoints, middleware, input validation, authentication, authorization, database access, and error handling.
+---
+
 # SKILL: REST API Patterns
 
 Reference for building Node.js APIs correctly.

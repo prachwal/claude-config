@@ -1,3 +1,8 @@
+---
+name: typescript
+description: Use when writing TypeScript types, generics, utility types, narrowing, error handling, or fixing TS errors. Covers patterns for both frontend and backend code.
+---
+
 # SKILL: TypeScript Patterns
 
 Reference for writing correct TypeScript in this project.

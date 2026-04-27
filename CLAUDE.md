@@ -34,12 +34,23 @@ Read the relevant skill file before writing code in that domain:
 | Domain | Skill file |
 |--------|-----------|
 | TypeScript types, generics, errors | `.claude/skills/typescript/SKILL.md` |
+| TypeScript structure, JSDoc, naming | `.claude/skills/typescript-fundamentals/SKILL.md` |
 | React components, hooks, context | `.claude/skills/react/SKILL.md` |
 | REST API, validation, auth, DB | `.claude/skills/rest-api/SKILL.md` |
-| Vitest, mocking, RTL | `.claude/skills/vitest/SKILL.md` |
+| Vitest unit/integration tests | `.claude/skills/vitest/SKILL.md` |
+| Playwright E2E, browser testing | `.claude/skills/web-testing/SKILL.md` |
 | Tailwind CSS v4, dark mode, tokens | `.claude/skills/tailwind/SKILL.md` |
-| Accessibility, WCAG 2.2, ARIA | `.claude/skills/wcag-aria/SKILL.md` |
+| Accessibility audit (WCAG 2.2, ARIA) | `.claude/skills/a11y-review/SKILL.md` |
+| Accessible implementation (ARIA, keyboard) | `.claude/skills/wcag-aria/SKILL.md` |
+| WCAG standards reference | `.claude/skills/web-accessibility-standards/SKILL.md` |
 | Responsive design, mobile-first | `.claude/skills/responsive/SKILL.md` |
+| Frontend UI (React/TSX + Tailwind) | `.claude/skills/frontend-ui/SKILL.md` |
+| Web forms (validation, a11y, async) | `.claude/skills/web-forms/SKILL.md` |
+| Data fetching, loading/error states | `.claude/skills/web-data-fetching/SKILL.md` |
+| Web performance, Core Web Vitals | `.claude/skills/web-performance/SKILL.md` |
+| Frontend security (XSS, CSP, tokens) | `.claude/skills/web-security/SKILL.md` |
+| ESLint flat config, TypeScript rules | `.claude/skills/eslint-config/SKILL.md` |
+| Internationalization (i18n, RTL) | `.claude/skills/web-i18n/SKILL.md` |
 
 **How to load a skill**: Use the `Read` tool on the skill file path at the start of the relevant task.
 
