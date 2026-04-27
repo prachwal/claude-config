@@ -1,6 +1,6 @@
 ---
 name: wcag-aria
-description: Use when building accessible web UI: ARIA roles and labels, keyboard navigation, focus management, accessible forms, color contrast, live regions, and prefers-reduced-motion.
+description: Use when implementing ARIA patterns in React/TSX code: roles, labels, keyboard navigation, focus management, accessible forms with error announcements, interactive widgets (modal, accordion, tabs), color contrast, and prefers-reduced-motion. Contains ready-to-use code examples. For project-level accessibility workflow and principles, use web-accessibility-standards.
 ---
 
 # SKILL: WCAG / ARIA Accessibility Patterns

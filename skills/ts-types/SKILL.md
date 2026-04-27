@@ -1,6 +1,6 @@
 ---
-name: typescript
-description: Use when writing TypeScript types, generics, utility types, narrowing, error handling, or fixing TS errors. Covers patterns for both frontend and backend code.
+name: ts-types
+description: Use when writing TypeScript types, generics, utility types, narrowing, discriminated unions, or fixing TS type errors. Covers type-level patterns for both frontend and backend code.
 ---
 
 # SKILL: TypeScript Patterns

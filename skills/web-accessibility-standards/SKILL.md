@@ -1,6 +1,6 @@
 ---
 name: web-accessibility-standards
-description: Use when implementing accessible web interfaces, especially semantic HTML, ARIA, keyboard support, responsive mobile-first layouts, focus management, dynamic content, and automated accessibility checks. For audits and QA passes, use the `a11y-review` skill in the same repository.
+description: Use when approaching accessibility at the project or workflow level: semantic HTML strategy, WCAG 2.2 criteria mapping, axe-core CI integration, and implementation checklist. For concrete ARIA code examples in React/TSX, use wcag-aria. For audits and QA passes, use a11y-review.
 ---
 
 # Web Accessibility Standards Skill

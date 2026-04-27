@@ -1,6 +1,6 @@
 ---
-name: typescript-fundamentals
-description: Use when designing or reviewing TypeScript code structure, type safety, patterns, JSDoc, naming conventions, formatting, and module organization. Applies to both frontend and backend TypeScript projects.
+name: ts-fundamentals
+description: Use when reviewing TypeScript project structure, tsconfig setup, naming conventions, JSDoc documentation, module organization, or enforcing code-level consistency. Applies to both frontend and backend TypeScript projects.
 ---
 
 # TypeScript Fundamentals Skill

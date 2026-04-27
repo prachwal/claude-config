@@ -33,18 +33,17 @@ Read the relevant skill file before writing code in that domain:
 
 | Domain | Skill file |
 |--------|-----------|
-| TypeScript types, generics, errors | `.claude/skills/typescript/SKILL.md` |
-| TypeScript structure, JSDoc, naming | `.claude/skills/typescript-fundamentals/SKILL.md` |
+| TypeScript types, generics, utility types | `.claude/skills/ts-types/SKILL.md` |
+| TypeScript structure, JSDoc, naming, tsconfig | `.claude/skills/ts-fundamentals/SKILL.md` |
 | React components, hooks, context | `.claude/skills/react/SKILL.md` |
 | REST API, validation, auth, DB | `.claude/skills/rest-api/SKILL.md` |
 | Vitest unit/integration tests | `.claude/skills/vitest/SKILL.md` |
 | Playwright E2E, browser testing | `.claude/skills/web-testing/SKILL.md` |
 | Tailwind CSS v4, dark mode, tokens | `.claude/skills/tailwind/SKILL.md` |
-| Accessibility audit (WCAG 2.2, ARIA) | `.claude/skills/a11y-review/SKILL.md` |
-| Accessible implementation (ARIA, keyboard) | `.claude/skills/wcag-aria/SKILL.md` |
-| WCAG standards reference | `.claude/skills/web-accessibility-standards/SKILL.md` |
+| Accessibility audit (WCAG 2.2 QA) | `.claude/skills/a11y-review/SKILL.md` |
+| ARIA code patterns in React/TSX | `.claude/skills/wcag-aria/SKILL.md` |
+| Accessibility workflow and standards | `.claude/skills/web-accessibility-standards/SKILL.md` |
 | Responsive design, mobile-first | `.claude/skills/responsive/SKILL.md` |
-| Frontend UI (React/TSX + Tailwind) | `.claude/skills/frontend-ui/SKILL.md` |
 | Web forms (validation, a11y, async) | `.claude/skills/web-forms/SKILL.md` |
 | Data fetching, loading/error states | `.claude/skills/web-data-fetching/SKILL.md` |
 | Web performance, Core Web Vitals | `.claude/skills/web-performance/SKILL.md` |
