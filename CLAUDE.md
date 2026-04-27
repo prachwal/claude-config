@@ -127,3 +127,46 @@ When something fails:
 - Never refactor code that wasn't requested to change
 - Never skip error handling for async operations
 - Never run `rm -rf` anything
+
+---
+
+## TASK DELEGATION
+
+Spawn subagents to isolate context, parallelize independent work, or offload bulk mechanical tasks.
+**Critical for weak models**: long context degrades quality — isolate subtasks to keep each context short.
+
+Don't spawn when the parent needs the reasoning, or when synthesis requires holding things together.
+
+Pick the cheapest model that can do the subtask:
+- **Haiku**: bulk mechanical work, no judgment required (renaming, reformatting, boilerplate)
+- **Sonnet**: scoped research, code exploration, in-scope synthesis (default for most tasks)
+- **Opus**: subtasks needing real planning, architecture decisions, or cross-domain tradeoffs
+
+Spawn limits:
+- Haiku does not spawn further subagents. If it needs to, the task was wrong-sized — return to parent.
+- Maximum spawn depth is 2 (parent → subagent → one further tier).
+- Parent owns final output and cross-spawn synthesis.
+
+---
+
+## PREFERRED TOOLS
+
+### Data Fetching
+
+1. **WebFetch** — free, text-only, works on public pages that don't block bots.
+2. **Browser tool** — for dynamic pages or auth walls that WebFetch can't handle. Use `snapshot` for AI-friendly DOM state, element refs for interaction.
+3. When the same fetch/parse logic comes up more than once, add it to **Dedicated Tools** below.
+
+### PDF Files
+
+Use `pdftotext`, not the `Read` tool. Use `Read` only when the user asks to analyze images or charts inside the PDF.
+
+---
+
+## DEDICATED TOOLS
+
+<!-- List project-specific tools here. For each, link to its skill or script file.
+     Example: reddit_fetch — tools/reddit_fetch.py
+     The orchestration logic lives in those files, not here. -->
+
+---
