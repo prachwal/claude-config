@@ -173,11 +173,26 @@ claude_or() {
   claude "$@"
 }
 
+# Existing convenience aliases
 alias claude_devstral='claude_or mistralai/devstral-small'
 alias claude_codestral='claude_or mistralai/codestral-2508'
 alias claude_deepseek='claude_or deepseek/deepseek-r1-0528'
 alias claude_gemini='claude_or google/gemini-2.5-pro'
 alias claude_qwen='claude_or qwen/qwen3-235b-a22b'
 alias claude_kimi='claude_or moonshotai/kimi-k2'
+
+# Additional OpenRouter model aliases requested (free / cheap tiers)
+# Free models
+alias cc_llama='claude_or meta-llama/llama-3.3-70b-instruct:free'
+alias cc_gemini_flash='claude_or google/gemini-2.0-flash-exp:free'
+alias cc_qwen='claude_or qwen/qwen3-235b-a22b:free'
+alias cc_nemotron='claude_or nvidia/llama-3.1-nemotron-70b-instruct:free'
+
+# Cheap / paid options
+alias cc_gemini_flash_p='claude_or google/gemini-2.5-flash'
+alias cc_qwen_p='claude_or qwen/qwen3-235b-a22b'
+alias cc_llama_p='claude_or meta-llama/llama-3.3-70b-instruct'
+alias cc_gpt_mini='claude_or openai/gpt-4o-mini'
+alias cc_haiku='claude_or anthropic/claude-haiku-4-5'
 SHELL
 fi
